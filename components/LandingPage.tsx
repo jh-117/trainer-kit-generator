@@ -8,8 +8,6 @@ interface LandingPageProps {
 
 export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTemplates }) => {
   return (
-    <div className="w-full max-w-6xl mx-auto space-y-20 animate-in fade-in duration-700">
-      
       {/* Hero Section */}
       <div className="text-center space-y-8 pt-10 pb-10">
         <div className="inline-flex items-center px-3 py-1 rounded-full border border-indigo-100 bg-indigo-50 text-indigo-600 text-sm font-medium mb-4 animate-in fade-in slide-in-from-bottom-4 delay-100">
