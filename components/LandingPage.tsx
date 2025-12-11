@@ -3,6 +3,7 @@ import { Sparkles, ArrowRight, Presentation, FileText, Zap, Download, Layers, Us
 import kadoshLogo from '../assets/kadoshAI.png';
 import BackgroundMusic from './BackgroundMusic';
 import themeMusic from '../assets/trainer-theme.mp3';
+import PrivacyPolicy from './PrivacyPolicy';
 
 interface LandingPageProps {
   onStart: () => void;
