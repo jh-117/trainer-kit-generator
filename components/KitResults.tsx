@@ -6,6 +6,11 @@ import remarkGfm from 'remark-gfm';
 import JSZip from 'jszip';
 import PptxGenJS from 'pptxgenjs';
 import { jsPDF } from 'jspdf';
+import { SlideView } from './kit/SlideView';
+import { FlashcardView } from './kit/FlashcardView';
+import { MarkdownView } from './kit/MarkdownView';
+import { EditSlideModal } from './kit/EditSlideModal';
+import { downloadKit } from '../utils/downloadKit';
 
 interface KitResultsProps {
   kit: GeneratedKit;
