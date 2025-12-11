@@ -95,6 +95,26 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
                 <div className="text-sm font-medium text-slate-500 uppercase tracking-wide">Model Capabilities</div>
             </div>
         </div>
+
+
+        <div className="flex space-x-6 text-sm text-gray-600">
+              <button 
+                onClick={() => navigate('/privacy')} 
+                className="hover:text-blue-600 font-medium transition-colors"
+              >
+                Privacy Policy
+              </button>
+            </div>
+
+            {/* Powered By Section */}
+            <div className="flex flex-col items-center space-y-2">
+              <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Powered by</p>
+              <img
+                src={kadoshLogo}
+                alt="Kadosh AI"
+                className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+              />
+            </div>
       </div>
     </div>
   );
