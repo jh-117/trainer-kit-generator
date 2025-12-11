@@ -2,12 +2,7 @@ import { ArrowLeft, Shield, Layers } from 'lucide-react';
 import React from 'react';
 import kadoshLogo from '../assets/kadoshAI.png';
 
-interface PrivacyPolicyProps {
-  onBack: () => void;
-  onHomeClick: () => void;
-}
-
-function PrivacyPolicy({ onBack, onHomeClick }: PrivacyPolicyProps) {
+function PrivacyPolicy({ onBack, onHomeClick }) {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
