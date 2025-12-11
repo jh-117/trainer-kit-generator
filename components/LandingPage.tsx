@@ -1,80 +1,36 @@
-import React, { useState } from 'react';
-import { Sparkles, ArrowRight, Presentation, FileText, Zap, Download, Layers, Users } from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { BookOpen, Upload, Search, Shield } from 'lucide-react';
 import kadoshLogo from '../assets/kadoshAI.png';
-import BackgroundMusic from './BackgroundMusic';
-import themeMusic from '../assets/trainer-theme.mp3';
-import PrivacyPolicy from './PrivacyPolicy';
+import BackgroundMusic from '../components/BackgroundMusic';
+import themeMusic from '../assets/librarian-theme.mp3';
 
-interface LandingPageProps {
-  onStart: () => void;
-  onBrowseTemplates: () => void;
-}
-
-export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTemplates }) => {
-  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
-
-  const handlePrivacyPolicyClick = () => {
-    setShowPrivacyPolicy(true);
-  };
-
-  const handleClosePrivacyPolicy = () => {
-    setShowPrivacyPolicy(false);
-  };
+function LandingPage() {
+  const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex flex-col">
-      <BackgroundMusic src={themeMusic} />
-      
-      {/* Privacy Policy Modal */}
-      {showPrivacyPolicy && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">Privacy Policy</h2>
-                <button
-                  onClick={handleClosePrivacyPolicy}
-                  className="text-gray-400 hover:text-gray-600 transition-colors"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <PrivacyPolicy />
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <button
-                  onClick={handleClosePrivacyPolicy}
-                  className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex flex-col">
+       <BackgroundMusic src={themeMusic} />
       {/* Navigation */}
       <nav className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-2">
-              <Layers className="w-8 h-8 text-indigo-600" />
-              <span className="text-xl font-bold text-gray-900">TrainerKit GenAI</span>
+              <BookOpen className="w-8 h-8 text-blue-600" />
+              <span className="text-xl font-bold text-gray-900">Knowledge Librarian</span>
             </div>
             <div className="flex space-x-4">
               <button
-                onClick={onBrowseTemplates}
-                className="px-4 py-2 text-gray-700 hover:text-indigo-600 font-medium"
+                onClick={() => navigate('/admin/login')}
+                className="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium"
               >
-                Templates
+                Admin
               </button>
               <button
-                onClick={onStart}
-                className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium"
+                onClick={() => navigate('/seeker/login')}
+                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
               >
-                Start Generating
+                Search Knowledge
               </button>
             </div>
           </div>
@@ -86,22 +42,19 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center">
             <h1 className="text-5xl font-bold text-gray-900 mb-6">
-              Create Corporate Training,<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600">
-                In Seconds, Not Days
-              </span>
+              Preserve Institutional Knowledge,<br />
+              <span className="text-blue-600">Anonymously & Securely</span>
             </h1>
             <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
-              Instantly generate professional slide decks, facilitator guides, participant handouts, 
-              and flashcards from a simple topic or document upload.
+              Capture valuable insights from departing employees and make them searchable for your current team.
+              No personal data stored, completely anonymous.
             </p>
             <div className="flex justify-center space-x-4">
               <button
-                onClick={onStart}
-                className="px-8 py-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold text-lg shadow-lg hover:shadow-xl transition-all group flex items-center"
+                onClick={() => navigate('/upload')}
+                className="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold text-lg shadow-lg hover:shadow-xl transition-all"
               >
-                Start Generating Free
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                Enter Upload Code
               </button>
             </div>
           </div>
@@ -110,34 +63,31 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
           <div className="mt-24 grid md:grid-cols-3 gap-8">
             <div className="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <Presentation className="w-6 h-6 text-blue-600" />
+                <Upload className="w-6 h-6 text-blue-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Instant Slide Decks</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Anonymous Upload</h3>
               <p className="text-gray-600">
-                Get professionally structured presentations with speaker notes and AI-curated 
-                background imagery ready for PowerPoint.
+                Departing employees share knowledge via secure one-time codes. No accounts, no tracking, completely anonymous.
               </p>
             </div>
 
             <div className="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-4">
-                <FileText className="w-6 h-6 text-amber-600" />
+              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                <Search className="w-6 h-6 text-purple-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Comprehensive Guides</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Smart Search</h3>
               <p className="text-gray-600">
-                Generate detailed Facilitator Guides with timelines and Participant Handouts 
-                in clean Markdown or PDF formats.
+                AI-powered categorization and keyword extraction makes finding relevant knowledge instant and effortless.
               </p>
             </div>
 
             <div className="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">
-                <Zap className="w-6 h-6 text-emerald-600" />
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                <Shield className="w-6 h-6 text-green-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Interactive Learning</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Secure & Private</h3>
               <p className="text-gray-600">
-                Reinforce learning with automatically generated flashcards and role-playing 
-                scenarios tailored to your industry.
+                Enterprise-grade security with row-level policies. Only approved content is searchable by your team.
               </p>
             </div>
           </div>
@@ -145,66 +95,36 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
           {/* How It Works */}
           <div className="mt-24">
             <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">How It Works</h2>
-            <div className="grid md:grid-cols-4 gap-8">
+            <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
-                <div className="w-16 h-16 bg-indigo-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   1
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Enter Topic</h3>
-                <p className="text-gray-600">Describe your training topic or upload a document</p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Admin Creates Code</h3>
+                <p className="text-gray-600">Generate a secure 24-hour upload code for departing employee</p>
               </div>
 
               <div className="text-center">
-                <div className="w-16 h-16 bg-indigo-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   2
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Review Plan</h3>
-                <p className="text-gray-600">AI generates a comprehensive training outline for your approval</p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Employee Shares Knowledge</h3>
+                <p className="text-gray-600">Complete anonymous questionnaire and upload relevant documents</p>
               </div>
 
               <div className="text-center">
-                <div className="w-16 h-16 bg-indigo-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   3
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Generate Kit</h3>
-                <p className="text-gray-600">Create full training materials with one click</p>
-              </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-indigo-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  4
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Download & Use</h3>
-                <p className="text-gray-600">Export to PPTX, PDF, or Markdown and start training</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Stats Section */}
-          <div className="mt-24 border-t border-gray-200 pt-16 pb-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">100+</div>
-                <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">Industries Supported</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">10x</div>
-                <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">Faster Creation</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">PPTX</div>
-                <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">Native Export</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">4.0</div>
-                <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">Model Capabilities</div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Team Discovers Insights</h3>
+                <p className="text-gray-600">Search and access AI-summarized knowledge when needed</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Footer */}
+      {/* --- UPDATED FOOTER (No Terms of Service) --- */}
       <footer className="bg-white border-t border-gray-200 mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex flex-col items-center justify-center space-y-6">
@@ -212,8 +132,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
             {/* Links */}
             <div className="flex space-x-6 text-sm text-gray-600">
               <button 
-                onClick={handlePrivacyPolicyClick}
-                className="hover:text-indigo-600 font-medium transition-colors"
+                onClick={() => navigate('/privacy')} 
+                className="hover:text-blue-600 font-medium transition-colors"
               >
                 Privacy Policy
               </button>
@@ -231,11 +151,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
 
             {/* Copyright */}
             <p className="text-xs text-gray-400">
-              © {new Date().getFullYear()} TrainerKit GenAI. All rights reserved.
+              © {new Date().getFullYear()} Knowledge Librarian. All rights reserved.
             </p>
           </div>
         </div>
       </footer>
     </div>
   );
-};
+}
+
+export default LandingPage;
