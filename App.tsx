@@ -1,82 +1,173 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Sparkles, ArrowRight, Presentation, FileText, Zap, Layers } from 'lucide-react';
-import kadoshLogo from '../assets/kadoshAI.png';
-import BackgroundMusic from './BackgroundMusic';
-import themeMusic from '../assets/trainer-theme.mp3';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { InputSection } from './components/InputSection';
+import { PlanReview } from './components/PlanReview';
+import { KitResults } from './components/KitResults';
+import { LandingPage } from './components/LandingPage';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import { generateTrainingPlan, generateFullKit } from './services/apiService';
+import { AppState, TrainingInput, TrainingPlan, GeneratedKit } from './types';
+import { Layers } from 'lucide-react';
 
-interface LandingPageProps {
-  onStart: () => void;
-  onBrowseTemplates: () => void;
-}
-
-export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTemplates }) => {
+const MainApp: React.FC = () => {
   const navigate = useNavigate();
+  const [state, setState] = useState<AppState>(AppState.LANDING);
+  const [plan, setPlan] = useState<TrainingPlan | null>(null);
+  const [kit, setKit] = useState<GeneratedKit | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [inputTab, setInputTab] = useState<'create' | 'library'>('create');
+
+  const handleStart = () => {
+    setInputTab('create');
+    setState(AppState.INPUT);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleBrowseTemplates = () => {
+    setInputTab('library');
+    setState(AppState.INPUT);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleInputSubmit = async (input: TrainingInput) => {
+    try {
+      setState(AppState.ANALYZING);
+      setError(null);
+      const generatedPlan = await generateTrainingPlan(input);
+      setPlan(generatedPlan);
+      setState(AppState.REVIEW);
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "Failed to analyze input. Please try again.");
+      setState(AppState.INPUT);
+    }
+  };
+
+  const handleGenerateKit = async () => {
+    if (!plan) return;
+    try {
+      setState(AppState.GENERATING);
+      setError(null);
+      const generatedKit = await generateFullKit(plan);
+      setKit(generatedKit);
+      setState(AppState.RESULTS);
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "Failed to generate kit content.");
+      setState(AppState.REVIEW);
+    }
+  };
+
+  const handleKitSelected = (selectedKit: GeneratedKit) => {
+    setKit(selectedKit);
+    setState(AppState.RESULTS);
+    setError(null);
+  };
+
+  const handleReset = () => {
+    setState(AppState.INPUT);
+    setPlan(null);
+    setKit(null);
+    setError(null);
+  };
+
+  const handleHomeClick = () => {
+    setState(AppState.LANDING);
+    setPlan(null);
+    setKit(null);
+    setError(null);
+    navigate('/');
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex flex-col">
-      <BackgroundMusic src={themeMusic} />
-      
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2">
-              <Layers className="w-8 h-8 text-indigo-600" />
-              <span className="text-xl font-bold text-gray-900">TrainerKit GenAI</span>
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
+      {/* Header */}
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-50 print:hidden transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <div 
+            className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={handleHomeClick}
+          >
+            <div className="bg-indigo-600 p-2 rounded-lg shadow-sm">
+              <Layers className="w-5 h-5 text-white" />
             </div>
-            <div className="flex space-x-4">
-              <button
-                onClick={onBrowseTemplates}
-                className="px-4 py-2 text-gray-700 hover:text-indigo-600 font-medium"
-              >
-                Templates
-              </button>
-              <button
-                onClick={onStart}
-                className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium"
-              >
-                Start Generating
-              </button>
-            </div>
+            <span className="font-bold text-xl tracking-tight text-slate-900">TrainerKit GenAI</span>
           </div>
         </div>
-      </nav>
+      </header>
 
-      {/* ... rest of your landing page content ... */}
+      {/* Main Content */}
+      <main className="flex-grow flex flex-col items-center justify-center p-4 sm:p-8 print:p-0 w-full relative overflow-hidden">
+        {/* Decorative Background Elements */}
+        {state === AppState.LANDING && (
+           <>
+             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+               <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-200/30 rounded-full blur-[100px]" />
+               <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-200/30 rounded-full blur-[100px]" />
+             </div>
+           </>
+        )}
+
+        {error && (
+          <div className="mb-8 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg max-w-md w-full text-center relative z-10">
+            {error}
+          </div>
+        )}
+
+        <div className="w-full relative z-10">
+          {state === AppState.LANDING && (
+            <LandingPage onStart={handleStart} onBrowseTemplates={handleBrowseTemplates} />
+          )}
+
+          {state === AppState.INPUT || state === AppState.ANALYZING ? (
+            <InputSection 
+              onSubmit={handleInputSubmit}
+              onKitSelect={handleKitSelected}
+              isProcessing={state === AppState.ANALYZING} 
+              initialTab={inputTab}
+            />
+          ) : null}
+
+          {state === AppState.REVIEW || state === AppState.GENERATING ? (
+            plan && (
+              <PlanReview 
+                plan={plan} 
+                onConfirm={handleGenerateKit} 
+                onCancel={handleReset}
+                isGenerating={state === AppState.GENERATING}
+              />
+            )
+          ) : null}
+
+          {state === AppState.RESULTS && kit ? (
+            <KitResults 
+              kit={kit} 
+              onReset={handleReset} 
+              onUpdateKit={setKit}
+            />
+          ) : null}
+        </div>
+      </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex flex-col items-center justify-center space-y-6">
-            
-            {/* Links - Updated to use navigate */}
-            <div className="flex space-x-6 text-sm text-gray-600">
-              <button 
-                onClick={() => navigate('/privacy')}
-                className="hover:text-indigo-600 font-medium transition-colors"
-              >
-                Privacy Policy
-              </button>
-            </div>
-
-            {/* Powered By Section */}
-            <div className="flex flex-col items-center space-y-2">
-              <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Powered by</p>
-              <img
-                src={kadoshLogo}
-                alt="Kadosh AI"
-                className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
-              />
-            </div>
-
-            {/* Copyright */}
-            <p className="text-xs text-gray-400">
-              © {new Date().getFullYear()} TrainerKit GenAI. All rights reserved.
-            </p>
-          </div>
+      <footer className="bg-white border-t border-slate-200 py-8 mt-auto print:hidden relative z-10">
+        <div className="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
+          &copy; {new Date().getFullYear()} TrainerKit GenAI. All rights reserved.
         </div>
       </footer>
     </div>
   );
 };
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainApp />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;
