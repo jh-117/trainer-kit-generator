@@ -4,7 +4,6 @@ import { PlanReview } from './components/PlanReview';
 import { KitResults } from './components/KitResults';
 import { LandingPage } from './components/LandingPage';
 import PrivacyPolicy from './components/PrivacyPolicy';
-import { generateTrainingPlan, generateFullKit } from './services/apiService';
 import { AppState, TrainingInput, TrainingPlan, GeneratedKit } from './types';
 import { Layers } from 'lucide-react';
 
