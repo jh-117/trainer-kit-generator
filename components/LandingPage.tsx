@@ -15,8 +15,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
       <BackgroundMusic src={themeMusic} />
       {/* Hero Section */}
       <div className="text-center space-y-8 pt-10 pb-10">
-       
-        
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-tight animate-in fade-in slide-in-from-bottom-6 delay-200">
           Create Corporate Training <br className="hidden md:block" />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600">
@@ -81,43 +79,53 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
       {/* Social Proof / Stats */}
       <div className="border-t border-slate-200 pt-16 pb-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-                <div className="text-3xl font-bold text-slate-900 mb-1">100+</div>
-                <div className="text-sm font-medium text-slate-500 uppercase tracking-wide">Industries Supported</div>
-            </div>
-            <div>
-                <div className="text-3xl font-bold text-slate-900 mb-1">10x</div>
-                <div className="text-sm font-medium text-slate-500 uppercase tracking-wide">Faster Creation</div>
-            </div>
-             <div>
-                <div className="text-3xl font-bold text-slate-900 mb-1">PPTX</div>
-                <div className="text-sm font-medium text-slate-500 uppercase tracking-wide">Native Export</div>
-            </div>
-             <div>
-                <div className="text-3xl font-bold text-slate-900 mb-1">4.0</div>
-                <div className="text-sm font-medium text-slate-500 uppercase tracking-wide">Model Capabilities</div>
-            </div>
+          <div>
+            <div className="text-3xl font-bold text-slate-900 mb-1">100+</div>
+            <div className="text-sm font-medium text-slate-500 uppercase tracking-wide">Industries Supported</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-slate-900 mb-1">10x</div>
+            <div className="text-sm font-medium text-slate-500 uppercase tracking-wide">Faster Creation</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-slate-900 mb-1">PPTX</div>
+            <div className="text-sm font-medium text-slate-500 uppercase tracking-wide">Native Export</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-slate-900 mb-1">4.0</div>
+            <div className="text-sm font-medium text-slate-500 uppercase tracking-wide">Model Capabilities</div>
+          </div>
         </div>
+      </div>
 
+      {/* Footer Section */}
+      <div className="border-t border-slate-200 pt-8 pb-8">
+        <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+          {/* Privacy Policy */}
+          <div>
+            <button 
+              onClick={() => navigate('/privacy')} 
+              className="text-sm text-slate-600 hover:text-blue-600 font-medium transition-colors"
+            >
+              Privacy Policy
+            </button>
+          </div>
 
-        <div className="flex space-x-6 text-sm text-gray-600">
-              <button 
-                onClick={() => navigate('/privacy')} 
-                className="hover:text-blue-600 font-medium transition-colors"
-              >
-                Privacy Policy
-              </button>
-            </div>
+          {/* Powered By Section */}
+          <div className="flex flex-col items-center space-y-2">
+            <p className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Powered by</p>
+            <img
+              src={kadoshLogo}
+              alt="Kadosh AI"
+              className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+            />
+          </div>
 
-            {/* Powered By Section */}
-            <div className="flex flex-col items-center space-y-2">
-              <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Powered by</p>
-              <img
-                src={kadoshLogo}
-                alt="Kadosh AI"
-                className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
-              />
-            </div>
+          {/* Copyright Section */}
+          <div className="text-sm text-slate-500">
+            © 2025 TrainerKit GenAI. All rights reserved.
+          </div>
+        </div>
       </div>
     </div>
   );
