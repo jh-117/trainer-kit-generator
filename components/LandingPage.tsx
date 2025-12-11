@@ -1,188 +1,132 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { BookOpen, Upload, Search, Shield } from 'lucide-react';
+import React from 'react';
+import { Sparkles, ArrowRight, Presentation, FileText, Zap, Download, Layers, Users } from 'lucide-react';
 import kadoshLogo from '../assets/kadoshAI.png';
 import BackgroundMusic from './BackgroundMusic';
 import themeMusic from '../assets/trainer-theme.mp3';
-import PricavyPolicy from 'PrivacyPolicy'
 
-function LandingPage() {
-  const navigate = useNavigate();
+interface LandingPageProps {
+  onStart: () => void;
+  onBrowseTemplates: () => void;
+}
 
+export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTemplates }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex flex-col">
+    <div className="w-full max-w-6xl mx-auto space-y-20 animate-in fade-in duration-700">
       <BackgroundMusic src={themeMusic} />
-      
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2">
-              <BookOpen className="w-8 h-8 text-blue-600" />
-              <span className="text-xl font-bold text-gray-900">Knowledge Librarian</span>
-            </div>
-            <div className="flex space-x-4">
-              <button
-                onClick={() => navigate('/admin/login')}
-                className="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium"
-              >
-                Admin
-              </button>
-              <button
-                onClick={() => navigate('/seeker/login')}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
-              >
-                Search Knowledge
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
-      <div className="flex-grow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6">
-              Preserve Institutional Knowledge,<br />
-              <span className="text-blue-600">Anonymously & Securely</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
-              Capture valuable insights from departing employees and make them searchable for your current team.
-              No personal data stored, completely anonymous.
-            </p>
-            <div className="flex justify-center space-x-4">
-              <button
-                onClick={() => navigate('/upload')}
-                className="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold text-lg shadow-lg hover:shadow-xl transition-all"
-              >
-                Enter Upload Code
-              </button>
-            </div>
+      <div className="text-center space-y-8 pt-10 pb-10">
+        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-tight animate-in fade-in slide-in-from-bottom-6 delay-200">
+          Create Corporate Training <br className="hidden md:block" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600">
+            In Seconds, Not Days
+          </span>
+        </h1>
+        
+        <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed animate-in fade-in slide-in-from-bottom-8 delay-300">
+          Instantly generate professional slide decks, facilitator guides, participant handouts, and flashcards from a simple topic or document upload.
+        </p>
+        
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 animate-in fade-in slide-in-from-bottom-10 delay-500">
+          <button 
+            onClick={onStart}
+            className="group px-8 py-4 bg-indigo-600 text-white text-lg font-bold rounded-xl shadow-xl shadow-indigo-200 hover:bg-indigo-700 hover:shadow-2xl hover:shadow-indigo-300 transition-all transform hover:-translate-y-1 flex items-center"
+          >
+            Start Generating Free
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </button>
+          <button 
+            onClick={onBrowseTemplates}
+            className="px-8 py-4 bg-white text-slate-700 text-lg font-bold rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-all"
+          >
+            Browse Templates
+          </button>
+        </div>
+      </div>
+
+      {/* Feature Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+        <div className="p-8 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow group">
+          <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <Presentation className="w-6 h-6 text-blue-600" />
           </div>
+          <h3 className="text-xl font-bold text-slate-900 mb-3">Instant Slide Decks</h3>
+          <p className="text-slate-500 leading-relaxed">
+            Get professionally structured presentations with speaker notes and AI-curated background imagery ready for PowerPoint.
+          </p>
+        </div>
 
-          {/* Features Grid */}
-          <div className="mt-24 grid md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <Upload className="w-6 h-6 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Anonymous Upload</h3>
-              <p className="text-gray-600">
-                Departing employees share knowledge via secure one-time codes. No accounts, no tracking, completely anonymous.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                <Search className="w-6 h-6 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Smart Search</h3>
-              <p className="text-gray-600">
-                AI-powered categorization and keyword extraction makes finding relevant knowledge instant and effortless.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                <Shield className="w-6 h-6 text-green-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Secure & Private</h3>
-              <p className="text-gray-600">
-                Enterprise-grade security with row-level policies. Only approved content is searchable by your team.
-              </p>
-            </div>
+        <div className="p-8 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow group">
+          <div className="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <FileText className="w-6 h-6 text-amber-600" />
           </div>
+          <h3 className="text-xl font-bold text-slate-900 mb-3">Comprehensive Guides</h3>
+          <p className="text-slate-500 leading-relaxed">
+            Generate detailed Facilitator Guides with timelines and Participant Handouts in clean Markdown or PDF formats.
+          </p>
+        </div>
 
-          {/* How It Works */}
-          <div className="mt-24">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">How It Works</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  1
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Admin Creates Code</h3>
-                <p className="text-gray-600">Generate a secure 24-hour upload code for departing employee</p>
-              </div>
+        <div className="p-8 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow group">
+          <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <Zap className="w-6 h-6 text-emerald-600" />
+          </div>
+          <h3 className="text-xl font-bold text-slate-900 mb-3">Interactive Learning</h3>
+          <p className="text-slate-500 leading-relaxed">
+            Reinforce learning with automatically generated flashcards and role-playing scenarios tailored to your industry.
+          </p>
+        </div>
+      </div>
 
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  2
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Employee Shares Knowledge</h3>
-                <p className="text-gray-600">Complete anonymous questionnaire and upload relevant documents</p>
-              </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  3
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Team Discovers Insights</h3>
-                <p className="text-gray-600">Search and access AI-summarized knowledge when needed</p>
-              </div>
-            </div>
+      {/* Social Proof / Stats */}
+      <div className="border-t border-slate-200 pt-16 pb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div>
+            <div className="text-3xl font-bold text-slate-900 mb-1">100+</div>
+            <div className="text-sm font-medium text-slate-500 uppercase tracking-wide">Industries Supported</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-slate-900 mb-1">10x</div>
+            <div className="text-sm font-medium text-slate-500 uppercase tracking-wide">Faster Creation</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-slate-900 mb-1">PPTX</div>
+            <div className="text-sm font-medium text-slate-500 uppercase tracking-wide">Native Export</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-slate-900 mb-1">4.0</div>
+            <div className="text-sm font-medium text-slate-500 uppercase tracking-wide">Model Capabilities</div>
           </div>
         </div>
       </div>
 
-      {/* --- UPDATED FOOTER TO MATCH IMAGE --- */}
-      <footer className="bg-white mt-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* 1. Stats Section (New addition based on image) */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-16 border-t border-gray-100">
-             <div className="text-center">
-               <div className="text-3xl font-bold text-gray-900 mb-1">100+</div>
-               <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Industries Supported</div>
-             </div>
-             <div className="text-center">
-               <div className="text-3xl font-bold text-gray-900 mb-1">10x</div>
-               <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Faster Creation</div>
-             </div>
-             <div className="text-center">
-               <div className="text-3xl font-bold text-gray-900 mb-1">PPTX</div>
-               <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Native Export</div>
-             </div>
-             <div className="text-center">
-               <div className="text-3xl font-bold text-gray-900 mb-1">4.0</div>
-               <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Model Capabilities</div>
-             </div>
+      {/* Footer Section */}
+      <div className="border-t border-slate-200 pt-8 pb-8">
+        <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+          {/* Privacy Policy */}
+          <div>
+            <button 
+              onClick={() => navigate('/privacy')} 
+              className="text-sm text-slate-600 hover:text-blue-600 font-medium transition-colors"
+            >
+              Privacy Policy
+            </button>
           </div>
 
-          {/* 2. Middle Section: Privacy & Powered By */}
-          <div className="flex flex-col md:flex-row justify-between items-center py-10 border-t border-gray-100">
-            {/* Left: Links */}
-            <div className="mb-6 md:mb-0">
-              <button 
-                onClick={() => navigate('/privacy')} 
-                className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
-              >
-                Privacy Policy
-              </button>
-            </div>
-
-            {/* Right: Powered By */}
-            <div className="flex flex-col items-center md:items-end">
-              <p className="text-xs text-gray-400 uppercase tracking-wider font-bold mb-2">Powered by</p>
-              <img
-                src={kadoshLogo}
-                alt="Kadosh AI"
-                className="h-8 w-auto object-contain"
-              />
-            </div>
+          {/* Powered By Section */}
+          <div className="flex flex-col items-center space-y-2">
+            <p className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Powered by</p>
+            <img
+              src={kadoshLogo}
+              alt="Kadosh AI"
+              className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+            />
           </div>
 
-          {/* 3. Bottom Section: Copyright */}
-          <div className="border-t border-gray-100 py-8">
-             <p className="text-center text-sm text-gray-400">
-              © {new Date().getFullYear()} Knowledge Librarian. All rights reserved.
-            </p>
+          {/* Copyright Section */}
+          <div className="text-sm text-slate-500">
+            © 2025 TrainerKit GenAI. All rights reserved.
           </div>
         </div>
-      </footer>
+      </div>
     </div>
   );
-}
-
-export default LandingPage;
+};
