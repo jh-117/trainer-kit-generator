@@ -4,6 +4,7 @@ import { BookOpen, Upload, Search, Shield } from 'lucide-react';
 import kadoshLogo from '../assets/kadoshAI.png';
 import BackgroundMusic from './BackgroundMusic';
 import themeMusic from '../assets/librarian-theme.mp3';
+import PricavyPolicy from './PrivacyPolicy'
 
 function LandingPage() {
   const navigate = useNavigate();
