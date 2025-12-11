@@ -121,11 +121,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
             />
           </div>
 
-          {/* Copyright Section */}
-          <div className="text-sm text-slate-500">
-            © 2025 TrainerKit GenAI. All rights reserved.
-          </div>
-        </div>
+         
       </div>
     </div>
   );
