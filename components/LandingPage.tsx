@@ -121,7 +121,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
             />
           </div>
 
-          {/* Copyright Section */}
+ 
           
         </div>
       </div>
