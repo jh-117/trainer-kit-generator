@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BookOpen, Upload, Search, Shield } from 'lucide-react';
 import kadoshLogo from '../assets/kadoshAI.png';
-import BackgroundMusic from '../components/BackgroundMusic';
+import BackgroundMusic from './components/BackgroundMusic';
 import themeMusic from '../assets/librarian-theme.mp3';
 
 function LandingPage() {
