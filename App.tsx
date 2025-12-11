@@ -3,7 +3,7 @@ import { InputSection } from './components/InputSection';
 import { PlanReview } from './components/PlanReview';
 import { KitResults } from './components/KitResults';
 import { LandingPage } from './components/LandingPage';
-import { generateTrainingPlan, generateFullKit } from './services/openaiService';
+import { generateTrainingPlan, generateFullKit } from './services/openAIService';
 import { AppState, TrainingInput, TrainingPlan, GeneratedKit } from './types';
 import { Layers } from 'lucide-react';
 
