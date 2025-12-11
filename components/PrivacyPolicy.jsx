@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Shield } from 'lucide-react';
+import React, { useState } from 'react';
+
 
 function PrivacyPolicy() {
   const navigate = useNavigate();
