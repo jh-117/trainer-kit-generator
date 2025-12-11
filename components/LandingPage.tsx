@@ -9,7 +9,7 @@ interface LandingPageProps {
 export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTemplates }) => {
   return (
     <div className="w-full max-w-6xl mx-auto space-y-20 animate-in fade-in duration-700">
-      
+      <BackgroundMusic src={themeMusic} />
       {/* Hero Section */}
       <div className="text-center space-y-8 pt-10 pb-10">
        
