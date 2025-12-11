@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { BookOpen, Upload, Search, Shield } from 'lucide-react';
 import kadoshLogo from '../assets/kadoshAI.png';
 import BackgroundMusic from './BackgroundMusic';
-// FIX: Updated filename to match your file structure
-import themeMusic from '../assets/trainer-theme.mp3'; 
+import themeMusic from '../assets/trainer-theme.mp3';
+import PricavyPolicy from 'PrivacyPolicy'
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -126,11 +126,11 @@ function LandingPage() {
         </div>
       </div>
 
-      {/* --- UPDATED FOOTER --- */}
+      {/* --- UPDATED FOOTER TO MATCH IMAGE --- */}
       <footer className="bg-white mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          {/* 1. Stats Section */}
+          {/* 1. Stats Section (New addition based on image) */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-16 border-t border-gray-100">
              <div className="text-center">
                <div className="text-3xl font-bold text-gray-900 mb-1">100+</div>
