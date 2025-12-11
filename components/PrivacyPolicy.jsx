@@ -1,10 +1,13 @@
-import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Shield, Layers } from 'lucide-react';
 import React from 'react';
+import kadoshLogo from '../assets/kadoshAI.png';
 
-function PrivacyPolicy() {
-  const navigate = useNavigate();
+interface PrivacyPolicyProps {
+  onBack: () => void;
+  onHomeClick: () => void;
+}
 
+function PrivacyPolicy({ onBack, onHomeClick }: PrivacyPolicyProps) {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
@@ -12,7 +15,7 @@ function PrivacyPolicy() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div 
             className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity"
-            onClick={() => navigate('/')}
+            onClick={onHomeClick}
           >
             <div className="bg-indigo-600 p-2 rounded-lg shadow-sm">
               <Layers className="w-5 h-5 text-white" />
@@ -26,7 +29,7 @@ function PrivacyPolicy() {
       <div className="flex-grow py-8 px-4">
         <div className="max-w-4xl mx-auto">
           <button
-            onClick={() => navigate(-1)}
+            onClick={onBack}
             className="flex items-center text-gray-600 hover:text-gray-900 mb-6 transition-colors"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
@@ -182,10 +185,31 @@ function PrivacyPolicy() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-slate-200 py-8 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
-          &copy; {new Date().getFullYear()} TrainerKit GenAI. All rights reserved.
+      {/* Footer - Matching the image design */}
+      <footer className="bg-white border-t border-gray-200 mt-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="flex flex-col items-center justify-center space-y-6">
+            
+            {/* Privacy Policy Link */}
+            <div className="text-center">
+              <span className="text-gray-600 font-medium text-base">Privacy Policy</span>
+            </div>
+
+            {/* Powered By Section */}
+            <div className="flex flex-col items-center space-y-2">
+              <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Powered by</p>
+              <img
+                src={kadoshLogo}
+                alt="Kadosh AI"
+                className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+              />
+            </div>
+
+            {/* Copyright */}
+            <p className="text-sm text-gray-400">
+              © {new Date().getFullYear()} Knowledge Librarian. All rights reserved.
+            </p>
+          </div>
         </div>
       </footer>
     </div>
