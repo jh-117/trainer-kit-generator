@@ -1,6 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Sparkles, ArrowRight, Presentation, FileText, Zap, Download, Layers, Users } from 'lucide-react';
+import { ArrowRight, Presentation, FileText, Zap, Layers } from 'lucide-react';
 import kadoshLogo from '../assets/kadoshAI.png';
 import BackgroundMusic from './BackgroundMusic';
 import themeMusic from '../assets/trainer-theme.mp3';
@@ -8,15 +7,10 @@ import themeMusic from '../assets/trainer-theme.mp3';
 interface LandingPageProps {
   onStart: () => void;
   onBrowseTemplates: () => void;
+  onPrivacyPolicyClick: () => void;
 }
 
-export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTemplates }) => {
-  const navigate = useNavigate();
-
-  const handlePrivacyPolicyClick = () => {
-    navigate('/privacy-policy');
-  };
-
+export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTemplates, onPrivacyPolicyClick }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex flex-col">
       <BackgroundMusic src={themeMusic} />
@@ -32,13 +26,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
             <div className="flex space-x-4">
               <button
                 onClick={onBrowseTemplates}
-                className="px-4 py-2 text-gray-700 hover:text-indigo-600 font-medium"
+                className="px-4 py-2 text-gray-700 hover:text-indigo-600 font-medium transition-colors"
               >
                 Templates
               </button>
               <button
                 onClick={onStart}
-                className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium"
+                className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium transition-colors"
               >
                 Start Generating
               </button>
@@ -178,7 +172,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
             {/* Privacy Policy Link */}
             <div className="text-center">
               <button 
-                onClick={handlePrivacyPolicyClick}
+                onClick={onPrivacyPolicyClick}
                 className="text-gray-600 hover:text-indigo-600 font-medium transition-colors text-base"
               >
                 Privacy Policy
