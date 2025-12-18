@@ -18,8 +18,7 @@ export const KitResults: React.FC<KitResultsProps> = ({ kit, onReset, onUpdateKi
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideDirection, setSlideDirection] = useState<'next' | 'prev'>('next');
   const [isDownloading, setIsDownloading] = useState(false);
-  const [imageSeeds, setImageSeeds] = useState<Record<number, number>>({});
-  
+
   // Editing State
   const [isEditingSlide, setIsEditingSlide] = useState(false);
   const [editingSlideData, setEditingSlideData] = useState<Slide | null>(null);
@@ -34,13 +33,6 @@ export const KitResults: React.FC<KitResultsProps> = ({ kit, onReset, onUpdateKi
   const handleEditClick = () => {
     setEditingSlideData({ ...kit.slides[currentSlide] });
     setIsEditingSlide(true);
-  };
-
-  const handleRefreshImage = () => {
-    setImageSeeds(prev => ({
-      ...prev,
-      [currentSlide]: (prev[currentSlide] || 0) + 1
-    }));
   };
 
   const handleSaveSlide = () => {
@@ -76,7 +68,7 @@ export const KitResults: React.FC<KitResultsProps> = ({ kit, onReset, onUpdateKi
   const handleDownload = async () => {
     setIsDownloading(true);
     try {
-      await downloadKit(kit, imageSeeds);
+      await downloadKit(kit);
     } catch (error) {
       console.error("Download failed:", error);
       alert("Failed to create download package. Please try again.");
@@ -146,15 +138,13 @@ export const KitResults: React.FC<KitResultsProps> = ({ kit, onReset, onUpdateKi
       <div className="min-h-[600px] mt-6 print:mt-0 print:min-h-0" role="tabpanel" id={`${activeTab}-panel`}>
         {/* SLIDES TAB */}
         {activeTab === 'slides' && (
-           <SlideView 
+           <SlideView
               slides={kit.slides}
               currentSlide={currentSlide}
               slideDirection={slideDirection}
-              imageSeeds={imageSeeds}
               onNext={handleNextSlide}
               onPrev={handlePrevSlide}
               onEdit={handleEditClick}
-              onRefreshImage={handleRefreshImage}
            />
         )}
 

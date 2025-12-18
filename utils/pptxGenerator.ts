@@ -13,8 +13,7 @@ export const stripMarkdown = (text: string): string => {
 };
 
 export const generatePowerPoint = async (
-  slides: Slide[],
-  imageSeeds: Record<number, number>
+  slides: Slide[]
 ): Promise<Blob> => {
   const pptx = new PptxGenJS();
 

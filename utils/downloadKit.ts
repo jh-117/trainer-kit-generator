@@ -5,14 +5,13 @@ import { generatePowerPoint } from './pptxGenerator';
 import { createStyledPdf, generateFlashcardsPdf } from './pdfGenerator';
 
 export const downloadKit = async (
-  kit: GeneratedKit, 
-  imageSeeds: Record<number, number>
+  kit: GeneratedKit
 ): Promise<void> => {
   // @ts-ignore
   const zip = new JSZip();
-  
+
   // 1. Generate PowerPoint with enhanced styling
-  const pptxBlob = await generatePowerPoint(kit.slides, imageSeeds);
+  const pptxBlob = await generatePowerPoint(kit.slides);
   zip.file("Training_Presentation.pptx", pptxBlob);
   
   // 2. Generate Professional PDFs

@@ -1,37 +1,32 @@
 import React, { useState } from 'react';
 import { Slide } from '../../types';
-import { ChevronLeft, ChevronRight, Edit2, RefreshCw, Eye, EyeOff, StickyNote, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Edit2, Eye, EyeOff, StickyNote, X } from 'lucide-react';
 import { stripMarkdown } from '../../utils/pptxGenerator';
 
 interface SlideViewProps {
   slides: Slide[];
   currentSlide: number;
   slideDirection: 'next' | 'prev';
-  imageSeeds: Record<number, number>;
   onNext: () => void;
   onPrev: () => void;
   onEdit: () => void;
-  onRefreshImage: () => void;
 }
 
 export const SlideView: React.FC<SlideViewProps> = ({
   slides,
   currentSlide,
   slideDirection,
-  imageSeeds,
   onNext,
   onPrev,
   onEdit,
-  onRefreshImage
 }) => {
   const [showNotes, setShowNotes] = useState(false);
   const slide = slides[currentSlide];
-  
+
   const searchTerm = slide.visualSearchTerm || slide.title;
-  const seed = currentSlide + (imageSeeds[currentSlide] || 0);
   const bgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(
     searchTerm + " high quality professional corporate business stock photo unsplash pexels"
-  )}?width=1280&height=720&nologo=true&model=flux&seed=${seed}`;
+  )}?width=1280&height=720&nologo=true&model=flux&seed=${currentSlide}`;
 
   const animationClass = slideDirection === 'next' 
     ? 'animate-slide-in-right' 
@@ -86,14 +81,7 @@ export const SlideView: React.FC<SlideViewProps> = ({
 
           {/* Control Actions */}
           <div className="absolute top-4 right-4 z-30 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <button 
-              onClick={onRefreshImage}
-              className="bg-black/30 hover:bg-black/50 backdrop-blur-md border border-white/20 text-white p-2 rounded-lg shadow-lg transition-all hover:scale-105"
-              title="Regenerate Background Image"
-            >
-              <RefreshCw className="w-4 h-4" />
-            </button>
-            <button 
+            <button
               onClick={onEdit}
               className="bg-black/30 hover:bg-black/50 backdrop-blur-md border border-white/20 text-white p-2 rounded-lg shadow-lg flex items-center space-x-2 transition-all hover:scale-105"
             >
