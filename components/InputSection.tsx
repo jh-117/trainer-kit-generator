@@ -15,10 +15,35 @@ interface InputSectionProps {
 export const InputSection: React.FC<InputSectionProps> = ({ onSubmit, onKitSelect, isProcessing, initialTab = 'create' }) => {
   const [activeTab, setActiveTab] = useState<'create' | 'library'>(initialTab);
   const [industry, setIndustry] = useState('');
+  const [customIndustry, setCustomIndustry] = useState('');
   const [topic, setTopic] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [isLoadingLibrary, setIsLoadingLibrary] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const industryOptions = [
+    'Corporate',
+    'Design',
+    'Finance',
+    'Global',
+    'HR',
+    'Legal',
+    'Logistics',
+    'Management',
+    'Manufacturing',
+    'Marketing',
+    'Operations',
+    'Productivity',
+    'Sales',
+    'Soft Skills',
+    'Strategy',
+    'Technology',
+    'Other'
+  ];
+
+  const getIndustryValue = () => {
+    return industry === 'Other' ? customIndustry : industry;
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -45,7 +70,8 @@ export const InputSection: React.FC<InputSectionProps> = ({ onSubmit, onKitSelec
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ industry, topic, file });
+    const finalIndustry = getIndustryValue();
+    onSubmit({ industry: finalIndustry, topic, file });
   };
 
   return (
@@ -109,14 +135,32 @@ export const InputSection: React.FC<InputSectionProps> = ({ onSubmit, onKitSelec
                     <Briefcase className="w-4 h-4 mr-2 text-indigo-500" />
                     Industry
                   </label>
-                  <input
-                    type="text"
+                  <select
                     required
-                    placeholder="e.g. Healthcare, Tech, Retail"
-                    className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
+                    className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all bg-white"
                     value={industry}
-                    onChange={(e) => setIndustry(e.target.value)}
-                  />
+                    onChange={(e) => {
+                      setIndustry(e.target.value);
+                      if (e.target.value !== 'Other') {
+                        setCustomIndustry('');
+                      }
+                    }}
+                  >
+                    <option value="">Select an industry...</option>
+                    {industryOptions.map((opt) => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                  {industry === 'Other' && (
+                    <input
+                      type="text"
+                      required
+                      placeholder="Please specify your industry"
+                      className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all mt-2"
+                      value={customIndustry}
+                      onChange={(e) => setCustomIndustry(e.target.value)}
+                    />
+                  )}
                 </div>
                 <div className="space-y-2">
                   <label className="flex items-center text-sm font-medium text-slate-700">
@@ -188,7 +232,7 @@ export const InputSection: React.FC<InputSectionProps> = ({ onSubmit, onKitSelec
 
               <button
                 type="submit"
-                disabled={!industry || !topic || isProcessing}
+                disabled={!industry || !topic || (industry === 'Other' && !customIndustry) || isProcessing}
                 className="w-full flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-indigo-500/25"
               >
                 {isProcessing ? (
