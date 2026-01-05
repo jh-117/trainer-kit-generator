@@ -12,9 +12,11 @@ const App: React.FC = () => {
   const [state, setState] = useState<AppState>(AppState.LANDING);
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
   const [plan, setPlan] = useState<TrainingPlan | null>(null);
+  const [lastInput, setLastInput] = useState<TrainingInput | null>(null);
   const [kit, setKit] = useState<GeneratedKit | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [inputTab, setInputTab] = useState<'create' | 'library'>('create');
+  const [isRegenerating, setIsRegenerating] = useState(false);
 
   const handleStart = () => {
     setInputTab('create');
@@ -34,6 +36,7 @@ const App: React.FC = () => {
     try {
       setState(AppState.ANALYZING);
       setError(null);
+      setLastInput(input);
       const generatedPlan = await generateTrainingPlan(input);
       setPlan(generatedPlan);
       setState(AppState.REVIEW);
@@ -42,6 +45,25 @@ const App: React.FC = () => {
       setError(err.message || "Failed to analyze input. Please try again.");
       setState(AppState.INPUT);
     }
+  };
+
+  const handleRegeneratePlan = async () => {
+    if (!lastInput) return;
+    try {
+      setIsRegenerating(true);
+      setError(null);
+      const generatedPlan = await generateTrainingPlan(lastInput);
+      setPlan(generatedPlan);
+      setIsRegenerating(false);
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "Failed to regenerate plan. Please try again.");
+      setIsRegenerating(false);
+    }
+  };
+
+  const handleUpdatePlan = (updatedPlan: TrainingPlan) => {
+    setPlan(updatedPlan);
   };
 
   const handleGenerateKit = async () => {
@@ -70,6 +92,8 @@ const App: React.FC = () => {
     setPlan(null);
     setKit(null);
     setError(null);
+    setLastInput(null);
+    setIsRegenerating(false);
   };
 
   const handleHomeClick = () => {
@@ -77,6 +101,8 @@ const App: React.FC = () => {
     setPlan(null);
     setKit(null);
     setError(null);
+    setLastInput(null);
+    setIsRegenerating(false);
     setShowPrivacyPolicy(false);
   }
 
@@ -143,11 +169,14 @@ const App: React.FC = () => {
 
           {state === AppState.REVIEW || state === AppState.GENERATING ? (
             plan && (
-              <PlanReview 
-                plan={plan} 
-                onConfirm={handleGenerateKit} 
+              <PlanReview
+                plan={plan}
+                onConfirm={handleGenerateKit}
                 onCancel={handleReset}
+                onRegenerate={handleRegeneratePlan}
+                onUpdatePlan={handleUpdatePlan}
                 isGenerating={state === AppState.GENERATING}
+                isRegenerating={isRegenerating}
               />
             )
           ) : null}
