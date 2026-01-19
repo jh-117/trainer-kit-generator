@@ -164,35 +164,30 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
         </div>
       </div>
 
-      {/* Footer - Updated to match the image */}
-      <footer className="bg-white border-t border-gray-200 mt-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex flex-col items-center justify-center space-y-6">
-            
-            {/* Privacy Policy Link */}
+      {/* Footer - Updated to match the correct example structure */}
+      <footer className="bg-white border-t border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col items-center justify-center space-y-6 mb-6">
+            {/* Privacy Policy Link - Matching structure from correct example */}
             <div className="text-center">
-              <button 
+              <button
                 onClick={onPrivacyPolicyClick}
-                className="text-gray-600 hover:text-indigo-600 font-medium transition-colors text-base"
+                className="text-gray-600 hover:text-indigo-600 font-medium transition-colors text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 rounded px-2 py-1"
               >
                 Privacy Policy
               </button>
             </div>
+          </div>
 
-            {/* Powered By Section */}
-            <div className="flex flex-col items-center space-y-2">
-              <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Powered by</p>
-              <img
-                src={kadoshLogo}
-                alt="Kadosh AI"
-                className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
-              />
-            </div>
-
-            {/* Copyright */}
-            <p className="text-sm text-gray-400">
-             Copyright © {new Date().getFullYear()} Knowledge Librarian. All rights reserved.
-            </p>
+          {/* Copyright Footer Row - Matching structure from correct example */}
+          <div className="flex items-center justify-center text-gray-400 text-sm gap-3">
+            <span>Copyright © {new Date().getFullYear()}</span>
+            <img
+              src={kadoshLogo}
+              alt="Kadosh AI"
+              className="h-5 w-auto object-contain"
+            />
+            <span>All rights reserved</span>
           </div>
         </div>
       </footer>
