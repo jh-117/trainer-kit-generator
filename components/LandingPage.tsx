@@ -191,7 +191,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
 
             {/* Copyright */}
             <p className="text-sm text-gray-400">
-              © {new Date().getFullYear()} Knowledge Librarian. All rights reserved.
+             Copyright © {new Date().getFullYear()} Knowledge Librarian. All rights reserved.
             </p>
           </div>
         </div>
