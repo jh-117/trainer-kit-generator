@@ -195,7 +195,7 @@ const App: React.FC = () => {
       {/* Footer */}
       <footer className="bg-white border-t border-slate-200 py-8 mt-auto print:hidden relative z-10">
         <div className="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm flex items-center justify-center space-x-2">
-          <span>&copy; {new Date().getFullYear()}</span>
+          <span>Copyright &copy; {new Date().getFullYear()}</span>
           <img src={logoImage} alt="Logo" className="h-5 inline-block" />
           <span>All rights reserved</span>
         </div>
