@@ -180,7 +180,7 @@ export const InputSection: React.FC<InputSectionProps> = ({ onSubmit, onKitSelec
 
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-slate-700">
-                  Reference Material (Optional)
+                  Reference Material
                 </label>
                 <p className="text-xs text-slate-500 mb-2">
                   Upload a document to use as reference for the AI to generate more accurate training content
@@ -232,7 +232,7 @@ export const InputSection: React.FC<InputSectionProps> = ({ onSubmit, onKitSelec
 
               <button
                 type="submit"
-                disabled={!industry || !topic || (industry === 'Other' && !customIndustry) || isProcessing}
+                disabled={!industry || !topic || (industry === 'Other' && !customIndustry) || !file || isProcessing}
                 className="w-full flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-indigo-500/25"
               >
                 {isProcessing ? (
