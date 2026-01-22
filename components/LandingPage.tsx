@@ -227,7 +227,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
               </div>
             </div>
 
-            {/* Call to action */}
+          
             
           </div>
         </div>
