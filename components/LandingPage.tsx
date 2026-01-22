@@ -228,18 +228,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
             </div>
 
             {/* Call to action */}
-            <div className="mt-16 text-center">
-              <div className="inline-block bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-8 border border-blue-100">
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Ready to Get Started?</h3>
-                <p className="text-gray-600 mb-6">Create your first training kit in minutes</p>
-                <button
-                  onClick={onStart}
-                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:from-blue-700 hover:to-cyan-700 font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                >
-                  Get Started Now
-                </button>
-              </div>
-            </div>
+            
           </div>
         </div>
       </main>
