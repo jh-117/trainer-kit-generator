@@ -128,9 +128,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
               </div>
             </div>
           </div>
-
-        
-          </div>
         </div>
       </div>
 
