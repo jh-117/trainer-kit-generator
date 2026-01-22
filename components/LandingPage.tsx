@@ -130,6 +130,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
           </div>
 
          
+      </div>
 
       {/* Footer - Updated to match the correct example structure */}
       <footer className="bg-white border-t border-gray-200">
