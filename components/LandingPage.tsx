@@ -129,29 +129,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
             </div>
           </div>
 
-          {/* Stats Section */}
-          <div className="mt-24 border-t border-gray-200 pt-16 pb-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">100+</div>
-                <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">Industries Supported</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">10x</div>
-                <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">Faster Creation</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">PPTX</div>
-                <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">Native Export</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">4.0</div>
-                <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">Model Capabilities</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+         
 
       {/* Footer - Updated to match the correct example structure */}
       <footer className="bg-white border-t border-gray-200">
