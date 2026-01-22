@@ -24,14 +24,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
               <span className="text-xl font-bold text-gray-900">TrainerKit GenAI</span>
             </div>
             <div className="flex space-x-4">
-              
+              {/* Empty navigation space */}
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <div className="flex-grow">
+      {/* Main Content */}
+      <main className="flex-grow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center">
             <h1 className="text-5xl font-bold text-gray-900 mb-6">
@@ -129,13 +129,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
             </div>
           </div>
         </div>
-      </div>
+      </main>
 
-      {/* Footer - Updated to match the correct example structure */}
+      {/* Footer */}
       <footer className="bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col items-center justify-center space-y-6 mb-6">
-            {/* Privacy Policy Link - Matching structure from correct example */}
             <div className="text-center">
               <button
                 onClick={onPrivacyPolicyClick}
@@ -146,7 +145,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onBrowseTempl
             </div>
           </div>
 
-          {/* Copyright Footer Row - Matching structure from correct example */}
           <div className="flex items-center justify-center text-gray-400 text-sm gap-3">
             <span>Copyright © {new Date().getFullYear()}</span>
             <img
